@@ -1,42 +1,64 @@
-class Watch {
-    String brand;
-    String type;
-    double price;
+// BankAccount.java
+class BankAccount {
+    // Member variables
+    String accountHolder;
+    String accountNumber;
+    double balance;
 
-    void displayDetails() {
-        System.out.println("Brand: " + brand);
-        System.out.println("Type: " + type);
-        System.out.println("Price: ₹" + price);
+    // Constructor
+    BankAccount(String accountHolder, String accountNumber, double initialBalance) {
+        this.accountHolder = accountHolder;
+        this.accountNumber = accountNumber;
+        this.balance = initialBalance;
     }
 
-    void applyDiscount(double percentage) {
-        double discountAmount = (price * percentage) / 100;
-        price -= discountAmount;
-        System.out.println("After " + percentage + "% discount, new price is ₹" + price);
+    // Method to display account details
+    void displayAccountInfo() {
+        System.out.println("Account Holder: " + accountHolder);
+        System.out.println("Account Number: " + accountNumber);
+        System.out.println("Balance: $" + balance);
+    }
+
+    // Method to deposit money
+    void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("$" + amount + " deposited successfully.");
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
+    }
+
+    // Method to withdraw money
+    void withdraw(double amount) {
+        if (amount > 0 && amount <= balance) {
+            balance -= amount;
+            System.out.println("$" + amount + " withdrawn successfully.");
+        } else {
+            System.out.println("Insufficient balance or invalid amount.");
+        }
+    }
+
+    // Method to check balance
+    void checkBalance() {
+        System.out.println("Current Balance: $" + balance);
     }
 }
-
+// Main.java
 public class Main {
     public static void main(String[] args) {
-        Watch watch1 = new Watch();
-        Watch watch2 = new Watch();
+        // Create BankAccount object
+        BankAccount myAccount = new BankAccount("John Doe", "ACC123456", 1000.0);
 
-        watch1.brand = "Rolex";
-        watch1.type = "Analog";
-        watch1.price = 550000;
+        // Display initial details
+        myAccount.displayAccountInfo();
 
-        watch2.brand = "Casio";
-        watch2.type = "Digital";
-        watch2.price = 2500;
-
-        System.out.println("--- Watch 1 Details ---");
-        watch1.displayDetails();
-
-        System.out.println("\n--- Watch 2 Details ---");
-        watch2.displayDetails();
-
-        System.out.println("\nApplying discount on watches:");
-        watch1.applyDiscount(10);
-        watch2.applyDiscount(5);
+        // Perform some operations
+        System.out.println("\n--- Transactions ---");
+        myAccount.deposit(500.0);
+        myAccount.withdraw(300.0);
+        myAccount.withdraw(1500.0); // Try to withdraw more than balance
+        myAccount.checkBalance();
     }
 }
+
